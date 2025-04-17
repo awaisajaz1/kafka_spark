@@ -40,9 +40,10 @@ items_df = spark.createDataFrame(items_data, ["item_id", "item_name"])
 # Read data from Kafka source
 df = spark.readStream \
     .format("kafka") \
-    .option("kafka.bootstrap.servers", "127.0.0.1:9092") \
+    .option("kafka.bootstrap.servers", "192.168.1.7:9092") \
     .option("subscribe", "src_json") \
     .load()
+
 
 # Parse JSON data from Kafka
 parsed_df = df.selectExpr("CAST(value AS STRING) as json_str") \
