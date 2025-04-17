@@ -14,7 +14,7 @@ json_schema = StructType([
         StructField("email", StringType(), True)
     ]), True),
     StructField("items", ArrayType(StructType([
-        StructField("item_id", StringType(), True),
+        StructField("item_id", IntegerType(), True),
         StructField("price", IntegerType(), True)
     ])), True),
     StructField("timestamp", StringType(), True)
@@ -23,17 +23,17 @@ json_schema = StructType([
 # Create Spark session
 spark = SparkSession.builder \
     .master("local[1]") \
-    .appName("kafkastreams") \
+    .appName("kafkastreams1") \
     .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0") \
     .getOrCreate()
 
 # Static data for item details
 items_data = [
-    ("item-1", "Cake"),
-    ("item-2", "Ice Cream"),
-    ("item-3", "Soda"),
-    ("item-4", "Chips"),
-    ("item-5", "Cookies")
+    (1, "Cake"),
+    (2, "Ice Cream"),
+    (3, "Soda"),
+    (4, "Chips"),
+    (5, "Cookies")
 ]
 items_df = spark.createDataFrame(items_data, ["item_id", "item_name"])
 
@@ -72,6 +72,7 @@ joined_stream = parsed_df.join(items_df, parsed_df.item_id == items_df.item_id, 
         parsed_df.id,
         parsed_df.user_name,
         parsed_df.user_email,
+        parsed_df.item_id,
         items_df.item_name.alias("item_name"),
         parsed_df.item_price,
         parsed_df.timestamp
@@ -85,7 +86,7 @@ json_df.writeStream \
     .format("kafka") \
     .option("kafka.bootstrap.servers", "127.0.0.1:9092") \
     .option("topic", "downstream") \
-    .option("checkpointLocation", "/tmp/kafka_output_checkpoint1") \
+    .option("checkpointLocation", "/tmp/kafka_output_checkpoint3") \
     .outputMode("append") \
     .start() \
     .awaitTermination()

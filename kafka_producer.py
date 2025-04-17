@@ -12,11 +12,11 @@ producer = KafkaProducer(
 
 # List of items and prices
 items = [
-    {"item_name": "Cake", "item_price": 450, "item_id": "item-1"},
-    {"item_name": "Ice Cream", "item_price": 299, "item_id": "item-2"},
-    {"item_name": "Soda", "item_price": 120, "item_id": "item-3"},
-    {"item_name": "Chips", "item_price": 180, "item_id": "item-4"},
-    {"item_name": "Cookies", "item_price": 240, "item_id": "item-5"},
+    {"item_name": "Cake", "item_price": 450, "item_id": 1},
+    {"item_name": "Ice Cream", "item_price": 299, "item_id": 2},
+    {"item_name": "Soda", "item_price": 120, "item_id": 3},
+    {"item_name": "Chips", "item_price": 180, "item_id": 4},
+    {"item_name": "Cookies", "item_price": 240, "item_id": 5},
 ]
 
 
@@ -46,4 +46,4 @@ while True:
     producer.send('src_json', value=data)
     print(f"Produced: {data}")
     
-    time.sleep(15)
+    time.sleep(2)
