@@ -8,7 +8,7 @@ findspark.init()
 
 # Define schema for incoming JSON data
 json_schema = StructType([
-    StructField("id", StringType(), True),
+    StructField("id", IntegerType(), True),
     StructField("user", StructType([
         StructField("name", StringType(), True),
         StructField("email", StringType(), True)
@@ -23,7 +23,7 @@ json_schema = StructType([
 # Create Spark session
 spark = SparkSession.builder \
     .master("local[1]") \
-    .appName("kafkastream") \
+    .appName("kafkastreams") \
     .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0") \
     .getOrCreate()
 
@@ -85,7 +85,7 @@ json_df.writeStream \
     .format("kafka") \
     .option("kafka.bootstrap.servers", "127.0.0.1:9092") \
     .option("topic", "downstream") \
-    .option("checkpointLocation", "/tmp/kafka_output_checkpoint") \
+    .option("checkpointLocation", "/tmp/kafka_output_checkpoint1") \
     .outputMode("append") \
     .start() \
     .awaitTermination()

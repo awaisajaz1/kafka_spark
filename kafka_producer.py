@@ -23,9 +23,11 @@ items = [
 while True:
     item1 = random.choice(items)
     item2 = random.choice(items)
-
+    # id": f"cust-{uuid.uuid4().hex[:6]}
+    customer_id = random.randint(100000, 999999)
+    
     data = {
-        "id": f"cust-{uuid.uuid4().hex[:6]}",
+        "id": customer_id,
         "user_name": "John Doe",
         "user_email": "john@example.com",
          "items": [
