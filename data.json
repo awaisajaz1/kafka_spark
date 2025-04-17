@@ -1,0 +1,19 @@
+{
+    "id": "cust-123",
+    "user": {
+      "name": "John Doe",
+      "email": "john@example.com"
+    },
+    "items": [
+      {
+        "item_id": "item-1",
+        "price": 199
+      },
+      {
+        "item_id": "item-2",
+        "price": 299
+      }
+    ],
+    "timestamp": "2025-04-09T14:35:00Z"
+  }
+  
